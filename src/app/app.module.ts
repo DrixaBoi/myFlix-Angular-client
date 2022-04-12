@@ -23,6 +23,10 @@ import { UserRegistrationFormComponent } from './user-registration-form/user-reg
 import { UserLoginFormComponent } from './user-login-form/user-login-form.component';
 import { MovieCardComponent } from './movie-card/movie-card.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { DirectorCardComponent } from './director-card/director-card.component';
+import { GenreCardComponent } from './genre-card/genre-card.component';
+import { SynopsisCardComponent } from './synopsis-card/synopsis-card.component';
 
 // Routes definition
 const appRoutes: Routes = [
@@ -30,18 +34,26 @@ const appRoutes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
   // defined the /movies route to MovieCardComponent
   { path: 'movies', component: MovieCardComponent },
+  //defined the /profile route to UserProfileComponent
+  { path: 'profile', component: UserProfileComponent },
   //defined that a blank route "/..." will take the user back to the Welcome Page.
   { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
 ];
 
 @NgModule({
+  
   declarations: [
     AppComponent,
     UserRegistrationFormComponent,
     UserLoginFormComponent,
     MovieCardComponent,
-    WelcomePageComponent
+    WelcomePageComponent,
+    UserProfileComponent,
+    DirectorCardComponent,
+    GenreCardComponent,
+    SynopsisCardComponent
   ],
+  
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
@@ -60,4 +72,5 @@ const appRoutes: Routes = [
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

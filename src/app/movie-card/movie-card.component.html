@@ -1,3 +1,22 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            MyFlix Movies
+        </mat-card-title>
+        <mat-card-subtitle>
+            An app for movie lovers
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="openUserProfileDialog()"
+        >
+            Profile
+        </button>                
+    </mat-card-actions>
+</mat-card>
 <div style="display: flex;">
 <mat-card *ngFor="let movie of movies;" style="flex: 1 1 auto;">
     <mat-card-header>
@@ -14,24 +33,43 @@
         <button
             mat-button
             color="primary"
+            (click)="openGenreCard(
+                        movie.Genre.Name,
+                        movie.Genre.Description
+            )"
         >
             Genre
         </button>
         <button
             mat-button
             color="primary"
+            (click)="openDirectorCard(
+                        movie.Director.Name,
+                        movie.Director.Bio,
+                        movie.Director.Birth,
+                        movie.Director.Death
+                    )"
         >
             Director
         </button>        
         <button
             mat-button
             color="primary"
+            (click)="openSynopsisCard(
+                        movie.Title,
+                        movie.ImagePath,
+                        movie.Description
+                    )"                                   
         >
             Synopsis
         </button>
-        <mat-icon>
-            favorite_border
-        </mat-icon>                  
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="addFavoriteMovie(movie._id, movie.Title)"
+        >
+            Add to Favorites
+        </button>                  
     </mat-card-actions>
 </mat-card>    
 </div>

@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { DirectorCardComponent } from '../director-card/director-card.component';
+import { GenreCardComponent } from '../genre-card/genre-card.component';
+import { SynopsisCardComponent } from '../synopsis-card/synopsis-card.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-movie-card',
@@ -12,13 +18,20 @@ export class MovieCardComponent implements OnInit {
 // movies variable is declared as an array. this is where movies returned
 // from the API will be kept.
   movies: any[] = [];
+  favoriteMovies: any [] = [];
   
-  constructor(public fetchApiData: FetchApiDataService) { }
+  
+  constructor(
+    public fetchApiData: FetchApiDataService,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar
+    ) { }
 
 // getMovies function is called in the ngOnInit() lifecycle hook.
 // ngOnInit is called when Angular is done creating the component.
   ngOnInit(): void {
     this.getMovies();
+    this.getUserFavorites();
   }
 
 // getMovies function is implemented and used to fetch movies from the FetchApiDataService
@@ -29,6 +42,87 @@ export class MovieCardComponent implements OnInit {
       console.log(this.movies);
       return this.movies;
     });
+  }
+
+// getUserFavorites function uses getUser method to populate the users favorites array
+  getUserFavorites(): void {
+    this.fetchApiData.getUser().subscribe((resp: any) => {
+      this.favoriteMovies = resp.FavoriteMovies;
+      console.log(this.favoriteMovies);
+    });
+  }
+
+  // Opens user profile
+  openUserProfileDialog(): void {
+    this.dialog.open(UserProfileComponent, {
+      width: '300px'
+    });
+  }
+
+  openSynopsisCard(title: string, imagePath: any, description: string): void {
+    this.dialog.open(SynopsisCardComponent, {
+      data: {
+        Title: title,
+        ImagePath: imagePath,
+        Description: description,
+      },
+      width: '500px'
+    });
+   
+  }
+
+  // Opens Director Card
+  openDirectorCard(name: string, bio: string, birth: Date, death: Date): void {
+    this.dialog.open(DirectorCardComponent, {
+      data: {
+        Name: name,
+        Bio: bio,
+        Birth: birth,
+        Death: death
+      },
+      width: '500px',
+    });
+  }
+
+  openGenreCard(name: string, description: string): void {
+    this.dialog.open(GenreCardComponent, {
+      data: {
+        Name: name,
+        Description: description
+      },
+      width: '500px'
+    });
+  }
+
+  addFavoriteMovie(movieID: string, title: string): void {
+    console.log(movieID);
+    const token = localStorage.getItem('token');
+    console.log(token)
+    this.fetchApiData.addFavoriteMovie(movieID).subscribe((result: any) => {
+      console.log(result);
+      this.snackBar.open(
+        '${title} has been added to your favorites', 'OK', 
+        {
+          duration: 3000,
+        });
+      this.ngOnInit();
+    });
+    return this.getUserFavorites();
+  }
+    
+  DeleteFavoriteMovie(id: string, title: string): void {
+    console.log(id);
+    this.fetchApiData.deleteFavoriteMovie(id).subscribe((result: any) => {
+    console.log(result);
+    this.snackBar.open(
+      '${title} has been removed from your favorites', 'OK',
+      {
+        duration: 3000,
+      }
+    );
+    this.ngOnInit();
+    });
+    return this.getUserFavorites();
   }
 
 }
