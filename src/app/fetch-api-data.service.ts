@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
-const apiURL = 'https://drixflix.netlify.app/';
+const apiURL = 'https://drixflix.herokuapp.com/';
 // Injectable decorator, function that augments a piece of code.
 // In this case were using it to tell Angular that this service will be available everywhere. (hence the root)
 @Injectable({
