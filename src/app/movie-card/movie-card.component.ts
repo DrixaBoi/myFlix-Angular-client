@@ -59,6 +59,7 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  // opens Movie description "aka: synopsis" card
   openSynopsisCard(title: string, imagePath: any, description: string): void {
     this.dialog.open(SynopsisCardComponent, {
       data: {
@@ -84,6 +85,7 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  // opens Genre Card
   openGenreCard(name: string, description: string): void {
     this.dialog.open(GenreCardComponent, {
       data: {
@@ -94,6 +96,7 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  //function for (click) to add movieID to user favorites array
   addFavoriteMovie(movieID: string, title: string): void {
     console.log(movieID);
     const token = localStorage.getItem('token');
@@ -110,9 +113,10 @@ export class MovieCardComponent implements OnInit {
     return this.getUserFavorites();
   }
     
-  DeleteFavoriteMovie(id: string, title: string): void {
-    console.log(id);
-    this.fetchApiData.deleteFavoriteMovie(id).subscribe((result: any) => {
+  // function for users to delete movieID movies from their favorites
+  DeleteFavoriteMovie(movieID: string, title: string): void {
+    console.log(movieID);
+    this.fetchApiData.deleteFavoriteMovie(movieID).subscribe((result: any) => {
     console.log(result);
     this.snackBar.open(
       '${title} has been removed from your favorites', 'OK',

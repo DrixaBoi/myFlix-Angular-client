@@ -24,6 +24,7 @@ export class UserProfileComponent implements OnInit {
   constructor(
     public fetchApiData: FetchApiDataService,
     public dialogRef: MatDialogRef<UserProfileComponent>,
+    public dialog: MatDialog,
     public snackBar: MatSnackBar,
     public router: Router
     ) { }
