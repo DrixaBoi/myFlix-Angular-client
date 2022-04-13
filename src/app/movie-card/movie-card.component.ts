@@ -97,7 +97,7 @@ export class MovieCardComponent implements OnInit {
   }
 
   //function for (click) to add movieID to user favorites array
-  addFavoriteMovie(movieID: string, title: string): void {
+  addFavoriteMovie(movieID: any, title: string): void {
     console.log(movieID);
     const token = localStorage.getItem('token');
     console.log(token)

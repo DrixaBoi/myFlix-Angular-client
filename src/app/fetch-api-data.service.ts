@@ -133,7 +133,7 @@ export class FetchApiDataService {
 
   getUserFavorites(username: any): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.get(apiURL + 'users/${username}/favorites', {
+    return this.http.get(apiURL + `users/${username}/favorites`, {
       headers: new HttpHeaders(
         {
           Authorization: 'Bearer ' + token,
@@ -147,13 +147,13 @@ export class FetchApiDataService {
 
   addFavoriteMovie(movieId: any): Observable<any> {
     const token = localStorage.getItem('token');
-    const username = localStorage.getItem('username');
-    return this.http.get(apiURL + 'users/${username}/movies/${movieId}', {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return this.http.post(apiURL + `users/${user.Username}/movies/${movieId}`, {
       headers: new HttpHeaders(
         {
           Authorization: 'Bearer ' + token,
         }
-      )
+      ),
     }).pipe(
       map(this.extractResponseData),
       catchError(this.handleError)
@@ -163,7 +163,7 @@ export class FetchApiDataService {
   editUser(userData: object): Observable<any> {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('username');
-    return this.http.put(apiURL + 'users/${username}', {
+    return this.http.put(apiURL + `users/${username}`, {
       headers: new HttpHeaders(
         {
           Authorization: 'Bearer ' + token,
@@ -178,7 +178,7 @@ export class FetchApiDataService {
   deleteFavoriteMovie(movieId: any): Observable<any> {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('username');
-    return this.http.delete(apiURL + 'users/${username}/movies/${movieId}', {
+    return this.http.delete(apiURL + `users/${username}/movies/${movieId}`, {
       headers: new HttpHeaders(
         {
           Authorization: 'Bearer ' + token,
@@ -193,7 +193,7 @@ export class FetchApiDataService {
   deleteUserProfile(): Observable<any> {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('username');
-    return this.http.delete(apiURL + 'users/${username}', {
+    return this.http.delete(apiURL + `users/${username}`, {
       headers: new HttpHeaders(
         {
           Authorization: 'Bearer ' + token,
