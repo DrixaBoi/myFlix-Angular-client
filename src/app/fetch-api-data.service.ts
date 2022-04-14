@@ -116,10 +116,10 @@ export class FetchApiDataService {
     );
   }
 
-  getUser(): Observable<any> {
+  getUser(Username: any): Observable<any> {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
-    return this.http.get(apiURL + 'users/:Username', {
+    return this.http.get(apiURL + `users/${username}`, {
       headers: new HttpHeaders(
         {
           Authorization: 'Bearer ' + token,
@@ -131,8 +131,9 @@ export class FetchApiDataService {
     );
   }
 
-  getUserFavorites(username: any): Observable<any> {
+  getUserFavorites(Username: any): Observable<any> {
     const token = localStorage.getItem('token');
+    const username = localStorage.getItem('user');
     return this.http.get(apiURL + `users/${username}/favorites`, {
       headers: new HttpHeaders(
         {
@@ -162,8 +163,8 @@ export class FetchApiDataService {
 
   editUser(userData: object): Observable<any> {
     const token = localStorage.getItem('token');
-    const username = localStorage.getItem('username');
-    return this.http.put(apiURL + `users/${username}`, {
+    const Username = localStorage.getItem('user');
+    return this.http.put(apiURL + `users/${Username}`, userData, {
       headers: new HttpHeaders(
         {
           Authorization: 'Bearer ' + token,
@@ -177,7 +178,7 @@ export class FetchApiDataService {
 
   deleteFavoriteMovie(movieId: any): Observable<any> {
     const token = localStorage.getItem('token');
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem('user');
     return this.http.delete(apiURL + `users/${username}/movies/${movieId}`, {
       headers: new HttpHeaders(
         {
@@ -192,7 +193,7 @@ export class FetchApiDataService {
   
   deleteUserProfile(): Observable<any> {
     const token = localStorage.getItem('token');
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem('user');
     return this.http.delete(apiURL + `users/${username}`, {
       headers: new HttpHeaders(
         {
