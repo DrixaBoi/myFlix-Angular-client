@@ -28,7 +28,10 @@ import { DirectorCardComponent } from './director-card/director-card.component';
 import { GenreCardComponent } from './genre-card/genre-card.component';
 import { SynopsisCardComponent } from './synopsis-card/synopsis-card.component';
 
-// Routes definition
+/** This is for setting new myFlix endpoints with the Angular/router
+ * RouterModule import above. Path: will be the new endpoint, and the 
+ * component links it to that particular set of functions and methods.
+ */ 
 const appRoutes: Routes = [
   // defined the /welcome route to WelcomePageComponent.
   { path: 'welcome', component: WelcomePageComponent },

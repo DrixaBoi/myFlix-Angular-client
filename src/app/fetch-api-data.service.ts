@@ -4,19 +4,22 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 const apiURL = 'https://drixflix.herokuapp.com/';
-// Injectable decorator, function that augments a piece of code.
-// In this case were using it to tell Angular that this service will be available everywhere. (hence the root)
+/**Injectable decorator, function that augments a piece of code.
+*In this case were using it to tell Angular that this service will be available everywhere. (hence the root)
+*/
 @Injectable({
   providedIn: 'root'
 })
 export class FetchApiDataService {
-  // Inject the HttpClient module to the constructor params
-  // This will provide HttpClient to the entire class, making it available via this.http
+  /**Inject the HttpClient module to the constructor params
+  * This will provide HttpClient to the entire class, making it available via this.http
+  */ 
   constructor(private http: HttpClient) {
   }
-  // Making the api call for the user registration endpoint
-  // Observable<any> makes the method's return explicit by saying "we return this type"
-  // Giving the Typescript compiler information it can deduce about types
+  /**Making the api call for the user registration endpoint
+  *Observable<any> makes the method's return explicit by saying "we return this type"
+  *Giving the Typescript compiler information it can deduce about types
+  */
   public userRegistration(userDetails: any): Observable<any> {
     console.log(userDetails);
     // The .pipe function is used to combine multiple functions into a single function
@@ -131,9 +134,10 @@ export class FetchApiDataService {
     );
   }
 
-  getUserFavorites(username: any): Observable<any> {
+  getUserFavorites(userInfo: any): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.get(apiURL + `users/${username}/favorites`, {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return this.http.get(apiURL + `users/${user.Username}/favorites`, {
       headers: new HttpHeaders(
         {
           Authorization: 'Bearer ' + token,
@@ -160,7 +164,7 @@ export class FetchApiDataService {
     );
   }
 
-  editUser(users: object): Observable<any> {
+  editUser(userInfo: object): Observable<any> {
     const token = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return this.http.put(apiURL + `users/${user.Username}`, {
@@ -178,7 +182,7 @@ export class FetchApiDataService {
   deleteFavoriteMovie(movieId: any): Observable<any> {
     const token = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return this.http.delete(apiURL + `users/${user.Username}/movies/${movieId}`, {
+    return this.http.delete(apiURL + `users/${user.sername}/movies/${movieId}`, {
       headers: new HttpHeaders(
         {
           Authorization: 'Bearer ' + token,

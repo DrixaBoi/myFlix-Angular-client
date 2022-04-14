@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FetchApiDataService } from '../fetch-api-data.service';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -13,13 +14,15 @@ import { FetchApiDataService } from '../fetch-api-data.service';
 export class UserProfileComponent implements OnInit {
   Username = localStorage.getItem('user');
   user: any = {};
-
+  
+// Decorator that defines the user profile inputs
   @Input() userData = {
     Username: this.user.Username,
     Password: this.user.Password,
     Email: this.user.Email,
     Birthday: this.user.Birthday
   }
+
 
   constructor(
     public fetchApiData: FetchApiDataService,

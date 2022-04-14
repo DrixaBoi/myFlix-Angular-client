@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 //this import closes dialog on success
 import { MatDialogRef } from '@angular/material/dialog';
-//this import bring the API calls I created in 6.2
+//this import brings the API calls I created
 import { FetchApiDataService } from '../fetch-api-data.service';
 //this import is used to display the notifications back to the user
 import { MatSnackBar } from '@angular/material/snack-bar';

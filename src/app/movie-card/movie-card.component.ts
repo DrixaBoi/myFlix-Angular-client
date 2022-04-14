@@ -15,8 +15,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class MovieCardComponent implements OnInit {
   
-// movies variable is declared as an array. this is where movies returned
-// from the API will be kept.
+/** movies variable is declared as an array. this is where movies returned
+* from the API will be kept.
+*/
   movies: any[] = [];
   favoriteMovies: any [] = [];
   
@@ -27,15 +28,17 @@ export class MovieCardComponent implements OnInit {
     public snackBar: MatSnackBar
     ) { }
 
-// getMovies function is called in the ngOnInit() lifecycle hook.
-// ngOnInit is called when Angular is done creating the component.
+/** getMovies function is called in the ngOnInit() lifecycle hook.
+* ngOnInit is called when Angular is done creating the component.
+*/
   ngOnInit(): void {
     this.getMovies();
     this.getUserFavorites();
   }
 
-// getMovies function is implemented and used to fetch movies from the FetchApiDataService
-// with the help of getAllMovies()
+/** getMovies function is implemented and used to fetch movies from the FetchApiDataService
+*  with the help of getAllMovies()
+*/
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
@@ -44,7 +47,7 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
-// getUserFavorites function uses getUser method to populate the users favorites array
+/** getUserFavorites function uses getUser method to populate the users favorites array */
   getUserFavorites(): void {
     this.fetchApiData.getUser().subscribe((resp: any) => {
       this.favoriteMovies = resp.FavoriteMovies;
@@ -104,7 +107,7 @@ export class MovieCardComponent implements OnInit {
     this.fetchApiData.addFavoriteMovie(movieID).subscribe((result: any) => {
       console.log(result);
       this.snackBar.open(
-        '${title} has been added to your favorites', 'OK', 
+        `${title} has been added to your favorites`, 'OK', 
         {
           duration: 3000,
         });
@@ -119,7 +122,7 @@ export class MovieCardComponent implements OnInit {
     this.fetchApiData.deleteFavoriteMovie(movieID).subscribe((result: any) => {
     console.log(result);
     this.snackBar.open(
-      '${title} has been removed from your favorites', 'OK',
+      `${title} has been removed from your favorites`, 'OK',
       {
         duration: 3000,
       }
