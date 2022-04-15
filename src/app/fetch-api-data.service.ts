@@ -121,20 +121,20 @@ export class FetchApiDataService {
 
   getUser(): Observable<any> {
     const token = localStorage.getItem('token');
-    const username = localStorage.getItem('user');
-    return this.http.get(apiURL + 'users/:Username', {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return this.http.get(apiURL + `users/${user.Username}`, {
       headers: new HttpHeaders(
         {
           Authorization: 'Bearer ' + token,
         }
-      )
+      ),
     }).pipe(
       map(this.extractResponseData),
       catchError(this.handleError)
     );
   }
 
-  getUserFavorites(userInfo: any): Observable<any> {
+  getUserFavorites(): Observable<any> {
     const token = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return this.http.get(apiURL + `users/${user.Username}/favorites`, {
